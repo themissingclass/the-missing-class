@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hike the Hike — The Missing Class</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:       #faf8f4;
+      --cream-dark:  #f2ede4;
+      --ink:         #1a1814;
+      --ink-muted:   #5a5650;
+      --ink-faint:   #9a9590;
+      --accent:      #8b6f47;
+      --rule:        #e4ddd3;
+      --serif:       'Cormorant Garamond', Georgia, serif;
+      --sans:        'Inter', system-ui, sans-serif;
+    }
+
+    html { background: var(--cream); color: var(--ink); }
+
+    body {
+      font-family: var(--sans);
+      font-size: 16px;
+      background: var(--cream);
+      min-height: 100vh;
+    }
+
+    /* ── SITE HEADER ── */
+    .site-header {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 2rem 1.5rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .site-name {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .site-nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .site-nav a {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .site-nav a:hover { color: var(--ink); }
+
+    /* ── ARTICLE HEADER ── */
+    .article-header {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem 3rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      text-decoration: none;
+      margin-bottom: 2.5rem;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--ink); }
+    .back-link::before { content: '←'; font-size: 0.85rem; }
+
+    .article-tag {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .article-headline {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.2rem;
+      max-width: 700px;
+    }
+
+    .article-lede {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ink-muted);
+      max-width: 620px;
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+
+    .article-byline {
+      font-size: 0.72rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── ARTICLE BODY ── */
+    .article-body {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 5rem;
+    }
+
+    .article-body p {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      line-height: 1.85;
+      margin-bottom: 1.7rem;
+      color: var(--ink);
+      font-weight: 300;
+    }
+
+    .article-body p.lead {
+      font-size: 1.25rem;
+      color: var(--ink-muted);
+      font-style: italic;
+    }
+
+    .article-body .closing {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 500;
+      font-style: italic;
+      margin-top: 3rem;
+      color: var(--ink);
+      border-top: 1px solid var(--rule);
+      padding-top: 2rem;
+    }
+
+    /* ── SVG VISUAL ── */
+    .visual-block {
+      margin: 3rem 0;
+      background: var(--cream-dark);
+      border-radius: 4px;
+      padding: 2rem 1.5rem;
+    }
+
+    .visual-caption {
+      font-size: 0.75rem;
+      color: var(--ink-faint);
+      text-align: center;
+      margin-top: 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      border-top: 1px solid var(--rule);
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-brand {
+      font-family: var(--serif);
+      font-size: 0.9rem;
+      color: var(--ink-faint);
+    }
+
+    .footer-note {
+      font-size: 0.68rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 600px) {
+      .site-header { flex-direction: column; gap: 1rem; }
+      .article-header { padding: 2.5rem 1.25rem 2rem; }
+      .article-body { padding: 2.5rem 1.25rem 4rem; }
+      .site-footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SITE HEADER -->
+  <header class="site-header">
+    <a class="site-name" href="index.html">The Missing Class</a>
+    <nav class="site-nav">
+      <a href="index.html">Essays</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+
+  <!-- ARTICLE HEADER -->
+  <div class="article-header">
+    <a class="back-link" href="index.html">All essays</a>
+    <div class="article-tag">On Living</div>
+    <h1 class="article-headline">Hike the Hike</h1>
+    <p class="article-lede">On why the journey deserves more of your attention than the destination.</p>
+    <div class="article-byline">Hong Ting &nbsp;&mdash;&nbsp; April 2026</div>
+  </div>
+
+  <!-- ARTICLE BODY -->
+  <article class="article-body">
+
+    <p>I remember hiking Kota Kinabalu and telling myself: don't linger. The faster you get to the top, the longer you get to enjoy the view from the peak. The summit was the point. Everything below it was just getting there.</p>
+
+    <p>That logic made complete sense to me at the time. Growing up, "focus" and "don't get distracted" were among my parents' most repeated refrains, and honestly, they weren't wrong. Tunnel vision, applied well, gets results.</p>
+
+    <p>I carried this into everything. When I played Pokémon, I had my six end-game team locked in from the start and trained them ruthlessly. Fun side routes, interesting detours, the quirky little Pokémon the game was quietly inviting me to explore... I largely ignored them. Eyes on the prize.</p>
+
+    <p>But I'm starting to think this is a bad trade.</p>
+
+    <!-- VISUAL: the 99% vs 1% diagram -->
+    <div class="visual-block">
+      <svg viewBox="0 0 620 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+        <defs>
+          <style>
+            .v-label { font-family: 'Inter', sans-serif; font-size: 11px; fill: #9a9590; letter-spacing: 0.06em; text-transform: uppercase; }
+            .v-pct   { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 42px; fill: #1a1814; font-weight: 300; }
+            .v-sub   { font-family: 'Inter', sans-serif; font-size: 11px; fill: #5a5650; }
+          </style>
+        </defs>
+
+        <!-- 99% bar -->
+        <rect x="30" y="60" width="420" height="36" rx="3" fill="#e4ddd3"/>
+        <rect x="30" y="60" width="415" height="36" rx="3" fill="#8b6f47" opacity="0.18"/>
+        <text x="30" y="50" class="v-label">The journey</text>
+        <text x="460" y="83" class="v-pct">99%</text>
+        <text x="30" y="115" class="v-sub">The grinding, the training, the ordinary Tuesday afternoons</text>
+
+        <!-- 1% bar -->
+        <rect x="30" y="148" width="420" height="14" rx="3" fill="#e4ddd3"/>
+        <rect x="30" y="148" width="4" height="14" rx="2" fill="#8b6f47" opacity="0.6"/>
+        <text x="30" y="140" class="v-label">The destination</text>
+        <text x="460" y="160" font-family="'Cormorant Garamond', Georgia, serif" font-size="20" fill="#9a9590" font-weight="300">1%</text>
+        <text x="38" y="178" class="v-sub">Five minutes at the summit</text>
+      </svg>
+      <p class="visual-caption">We optimise our lives around the 1%.</p>
+    </div>
+
+    <p>Here's the uncomfortable maths: reaching the top of a hike earns you maybe five to ten minutes at the peak. And if you'd pushed a little harder, skipped a few rest stops, powered through the scenic bits? Maybe you get there ten minutes earlier. Ten extra minutes at the summit, in exchange for an entire hike spent with your head down. A promotion or a good grade gives you a day, maybe two, of that quiet glow. These are the moments we organise our lives around. And yet the time actually spent working toward them, the grinding, the training, the ordinary Tuesday afternoons, that's the other 99%. It feels strange to spend so much energy optimising for the 1% while treating everything else as a cost to be minimised.</p>
+
+    <p>There's a hike I keep coming back to in my mind: Hooker Valley in New Zealand. My favourite hike in the world, and not because of the destination. It's because of what it felt like to simply be in it. The cold air, the sound of the rivers, the way the mountains sat around you like they'd always been there. Every step felt like something worth having, not just a step closer to the end. And yet I still knew where I was going. I wasn't wandering aimlessly. I was moving toward something, and I was fully present in the moving.</p>
+
+    <!-- VISUAL: two hikers comparison -->
+    <div class="visual-block">
+      <svg viewBox="0 0 620 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+        <defs>
+          <style>
+            .hv-label { font-family: 'Inter', sans-serif; font-size: 10px; fill: #9a9590; letter-spacing: 0.08em; text-transform: uppercase; }
+            .hv-note  { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 13px; fill: #5a5650; font-style: italic; }
+          </style>
+        </defs>
+
+        <!-- Left: head-down hiker -->
+        <text x="120" y="25" text-anchor="middle" class="hv-label">Head down</text>
+        <!-- mountain outline -->
+        <polyline points="30,180 120,60 210,180" fill="none" stroke="#e4ddd3" stroke-width="2"/>
+        <!-- path -->
+        <polyline points="40,175 120,65 200,175" fill="none" stroke="#8b6f47" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.4"/>
+        <!-- hiker dot -->
+        <circle cx="120" cy="65" r="5" fill="#8b6f47" opacity="0.5"/>
+        <!-- arrow showing fast -->
+        <path d="M100,130 L120,90" stroke="#8b6f47" stroke-width="1" marker-end="url(#arr)" opacity="0.5"/>
+        <!-- x marks along path (ignored moments) -->
+        <text x="68" y="138" font-family="Inter" font-size="10" fill="#c4bdb5">✕</text>
+        <text x="85" y="110" font-family="Inter" font-size="10" fill="#c4bdb5">✕</text>
+        <text x="143" y="110" font-family="Inter" font-size="10" fill="#c4bdb5">✕</text>
+        <text x="160" y="138" font-family="Inter" font-size="10" fill="#c4bdb5">✕</text>
+        <text x="55" y="195" text-anchor="middle" class="hv-note">moments skipped</text>
+        <text x="178" y="195" text-anchor="middle" class="hv-note">moments skipped</text>
+
+        <!-- divider -->
+        <line x1="310" y1="20" x2="310" y2="190" stroke="#e4ddd3" stroke-width="1"/>
+
+        <!-- Right: present hiker -->
+        <text x="500" y="25" text-anchor="middle" class="hv-label">Fully present</text>
+        <!-- mountain outline -->
+        <polyline points="410,180 500,60 590,180" fill="none" stroke="#e4ddd3" stroke-width="2"/>
+        <!-- path -->
+        <polyline points="420,175 500,65 580,175" fill="none" stroke="#8b6f47" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.7"/>
+        <!-- hiker dot mid-trail -->
+        <circle cx="460" cy="118" r="5" fill="#8b6f47" opacity="0.9"/>
+        <!-- circle markers (noticed moments) -->
+        <circle cx="435" cy="148" r="3.5" fill="none" stroke="#8b6f47" stroke-width="1.2" opacity="0.6"/>
+        <circle cx="448" cy="128" r="3.5" fill="none" stroke="#8b6f47" stroke-width="1.2" opacity="0.6"/>
+        <circle cx="474" cy="105" r="3.5" fill="none" stroke="#8b6f47" stroke-width="1.2" opacity="0.6"/>
+        <circle cx="490" cy="88" r="3.5" fill="none" stroke="#8b6f47" stroke-width="1.2" opacity="0.6"/>
+        <text x="420" y="195" text-anchor="middle" class="hv-note">moments kept</text>
+        <text x="550" y="195" text-anchor="middle" class="hv-note">moments kept</text>
+      </svg>
+      <p class="visual-caption">Same trail. Different experience entirely.</p>
+    </div>
+
+    <p>That's the balance I'm chasing now. Direction without fixation. Knowing where you're headed, while actually showing up for the walk.</p>
+
+    <p>Sometimes that even means taking the unplanned turn. The detour that doesn't fit neatly into the plan but ends up being the most memorable part of the trip. But that's a story for another time.</p>
+
+    <p>If life is a hike, the summit is just one moment. We spend almost everything on the trail, in the in-between, in the steps that don't make for great photos but make up the bulk of a life. The question isn't whether to have a destination. Direction matters. The question is whether you're present for the hike itself.</p>
+
+    <p class="closing">Don't just hike to the top. Hike the hike.</p>
+
+  </article>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <span class="footer-brand">The Missing Class</span>
+    <span class="footer-note">The lessons school never taught &nbsp;&mdash;&nbsp; Hong Ting</span>
+  </footer>
+
+</body>
+</html>
